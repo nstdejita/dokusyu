@@ -1,0 +1,3569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Java言語</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta keywords="">
+<style>
+
+.CodeMirror {
+  height: inherit;
+}
+
+.doc-embed {
+  padding: 0;
+  border: 1px solid #41454E;
+  border-radius: 3px;
+  margin-bottom: 4px;
+
+  color: #fff;
+
+  .doc-embed-wrapper {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+
+  .collapse-trigger {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 4px;
+    padding-left: 4px;
+    cursor: pointer;
+    overflow: hidden;
+
+    .threadline {
+      flex: 1 1 auto;
+      width: 1px;
+      background: #27282B;
+      transition: 0.2s
+      display: block;
+      margin: auto;
+    }
+
+    &:hover .threadline {
+      width: 1px;
+      background: #E6E6E6
+    }
+  }
+
+  svg {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    fill: currentColor;
+  }
+
+  &.collapsed {
+    .collapse-trigger  {
+      .threadline {
+        display: none;
+      }
+      svg {
+        transform: rotate(-90deg);
+      }
+    }
+    .doc-embed-content {
+      display: none;
+    }
+  }
+
+  .embed-body {
+    min-width: 0;
+  }
+
+  .doc-embed-header {
+    display: flex;
+    align-items: center;
+
+    & > div {
+      flex: 1;
+      min-width: 0;
+      padding: 4px 8px 4px 4px;
+    }
+
+    h1, a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      display: block;
+    }
+
+    a > svg {
+      margin-right: 5px;
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+  }
+
+  .doc-embed-content {
+    padding: 0 8px;
+  }
+}
+
+-ms-text-size-adjust: 100%;
+-webkit-text-size-adjust: 100%;
+line-height: 1.6;
+font-family: Lato, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+font-size: 15px;
+line-height: 1.6;
+word-wrap: break-word;
+
+.dark, .solarizedDark {
+  color: #FFF;
+}
+
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+a {
+  background-color: transparent;
+}
+
+a:active,
+  a:hover {
+  outline-width: 0;
+}
+
+strong {
+  font-weight: inherit;
+  font-weight: bolder;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+img {
+  border-style: none;
+}
+
+code,
+  kbd,
+  pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+input {
+  font: inherit;
+  margin: 0;
+}
+
+input {
+  overflow: visible;
+}
+
+[type='checkbox'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: 600;
+}
+
+hr {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #dfe2e5;
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+}
+
+hr:before {
+  content: '';
+  display: table;
+}
+
+hr:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+  th {
+  padding: 0;
+}
+
+details summary {
+  cursor: pointer;
+}
+
+h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h1,
+  h2 {
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h3,
+  h4 {
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h5,
+  h6 {
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 12px;
+}
+
+p {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+blockquote {
+  margin: 0;
+}
+
+ol,
+  ul {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+ol ol,
+  ul ol {
+  list-style-type: lower-roman;
+}
+
+ol ol ol,
+  ol ul ol,
+  ul ol ol,
+  ul ul ol {
+  list-style-type: lower-alpha;
+}
+
+dd {
+  margin-left: 0;
+}
+
+code,
+  pre {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+  font-size: 12px;
+}
+
+pre.CodeMirror,
+  code.CodeMirror {
+  height: auto;
+}
+
+pre {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+&:before {
+  content: '';
+  display: table;
+}
+
+&:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+> :first-child {
+  margin-top: 0 !important;
+}
+
+> :last-child {
+  margin-bottom: 0 !important;
+}
+
+a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+blockquote,
+  dl,
+  ol,
+  p,
+  pre,
+  table,
+  ul {
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+hr {
+  background-color: #e1e4e8;
+  border: 0;
+  height: 1px;
+  margin: 16px 0;
+  padding: 0;
+}
+
+blockquote {
+  border-left: 0.25em solid #e1e4e8;
+  color: #999999;
+  padding: 0 1em;
+}
+
+blockquote > :first-child {
+  margin-top: 0;
+}
+
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+kbd {
+  background-color: #fafbfc;
+  border: 1px solid #c6cbd1;
+  border-bottom-color: #959da5;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #959da5;
+  color: #444d56;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 10px;
+  padding: 3px 5px;
+  vertical-align: middle;
+}
+
+h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+  line-height: 1.25;
+  margin: 8px 0;
+}
+
+h1 {
+  margin-top: 32px;
+  font-weight: 600;
+  font-size: 1.953em;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 1em;
+}
+
+h5 {
+  font-weight: 400;
+  font-size: 0.875em;
+}
+
+h6 {
+  font-weight: 400;
+  color: #6a737d;
+  font-size: 0.85em;
+}
+
+ol,
+  ul {
+  padding-left: 2em;
+}
+ol ol,
+  ol ul,
+  ul ol,
+  ul ul {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+li {
+  word-wrap: break-all;
+}
+
+li > p {
+  margin-top: 16px;
+
+&:first-child {
+    margin-top: 0;
+  }
+&:last-child {
+    margin-bottom: 0;
+  }
+}
+
+li + li {
+  margin-top: 0.25em;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 16px;
+  padding: 0;
+}
+
+dl dd {
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
+table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+table th {
+  font-weight: 600;
+}
+
+table td,
+  table th {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #c6cbd1;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 15px 0;
+  box-sizing: content-box;
+}
+
+img[align='right'] {
+  padding-left: 20px;
+}
+
+img[align='left'] {
+  padding-right: 20px;
+}
+
+code {
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  padding: 0.2em 0.4em;
+}
+
+p code,
+  li code
+{
+  padding: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+pre {
+  word-wrap: normal;
+}
+
+pre > code {
+  background: transparent;
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  word-break: normal;
+}
+
+.highlight {
+  margin-bottom: 16px;
+}
+
+.highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.highlight pre,
+  pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 16px;
+}
+
+pre code {
+  background-color: transparent;
+  border: 0;
+  display: inline;
+  line-height: inherit;
+  margin: 0;
+  max-width: auto;
+  overflow: visible;
+  padding: 0;
+  word-wrap: normal;
+}
+
+kbd {
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-bottom-color: #c6cbd1;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #c6cbd1;
+  color: #444d56;
+  display: inline-block;
+  font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+  line-height: 10px;
+  padding: 3px 5px;
+  vertical-align: middle;
+}
+
+:checked + .radio-label {
+  border-color: #0366d6;
+  position: relative;
+  z-index: 1;
+}
+
+.task-list-item {
+  position: relative;
+  list-style-type: none;
+  height: fit-content;
+  min-height: 25px;
+}
+
+.task-list-item + .task-list-item {
+  margin-top: 3px;
+}
+
+.task-list-item input {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.task-list-item input[type=checkbox] {
+  position: absolute;
+  top: 6px;
+}
+
+hr {
+  border-bottom-color: #eee;
+}
+
+.dark p code,
+.dark li code
+{
+  background-color: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+  color: #5580DC;
+}
+
+.auto p code,
+.auto li code
+{
+  background-color: #F9F9F9;
+  border-color: rgba(0,0,0,0.26);
+  color: #5580DC;
+}
+
+.light p code,
+.light li code
+{
+  background-color: #F9F9F9;
+  border-color: rgba(0,0,0,0.26);
+  color: #5580DC;
+}
+
+.sepia p code,
+.sepia li code
+{
+  background-color: #efe8d6;
+  border-color: rgba(0,0,0,0.26);
+  color: #F77942;
+}
+
+.solarizedDark p code,
+.solarizedDark li code
+{
+  background-color: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+  color: #36abe3;
+}
+</style>
+<link rel="stylesheet" href="https://boostnote.io/app/codemirror/theme/codemirror.css">
+<link rel="stylesheet" href="https://boostnote.io/app/katex/katex.min.css">
+<link rel="stylesheet" href="https://boostnote.io/app/remark-admonitions/classic.css">
+<link rel="stylesheet" href="https://boostnote.io/app/codemirror/theme/material-darker.css">
+<link rel="stylesheet" href="https://boostnote.io/app/codemirror/theme/3024-night.css">
+</head>
+<body>
+<h1>1. Javaの基本構文</h1>
+<h2>1.1 入力、演算、出力</h2>
+<p>下記の内容をSample111.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Java:Sample111.java" data-raw="import java.util.Scanner;
+
+public class Sample111 {
+  public static void main(String[] args) {
+    // 整数型の変数を宣言する
+    int a, b, ans;
+
+    //　キーボードから２つの整数を入力する
+    Scanner scn = new Scanner(System.in);
+    System.out.print(&#x22;１つ目の整数を入力してください = &#x22;);
+    a = scn.nextInt();
+    System.out.print(&#x22;２つ目の整数を入力してください = &#x22;);
+    b = scn.nextInt();
+
+    // ２つの整数を加算する
+    ans = a + b;
+
+    // 加算結果を画面に表示する
+    System.out.println(&#x22;加算結果 = &#x22; + ans);
+  }
+}
+"><code class="language-Java:Sample111.java">import java.util.Scanner;
+
+public class Sample111 {
+  public static void main(String[] args) {
+    // 整数型の変数を宣言する
+    int a, b, ans;
+
+    //　キーボードから２つの整数を入力する
+    Scanner scn = new Scanner(System.in);
+    System.out.print("１つ目の整数を入力してください = ");
+    a = scn.nextInt();
+    System.out.print("２つ目の整数を入力してください = ");
+    b = scn.nextInt();
+
+    // ２つの整数を加算する
+    ans = a + b;
+
+    // 加算結果を画面に表示する
+    System.out.println("加算結果 = " + ans);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample111.java
+java Sample111
+"><code class="language-Shell:sample.sh">javac Sample111.java
+java Sample111
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>{ }　でブロックを表す</li>
+<li>命令文の最後には　セミコロン;　をつける</li>
+<li>コメントは　// もしくは　/* */ で囲む</li>
+<li>クラスの名前は先頭大文字にする</li>
+<li>クラスの中にメソッドを書く</li>
+<li>メソッドに処理の流れ（アルゴリズム）を書く</li>
+<li>int a, b, ans;　は変数の宣言を行っている</li>
+<li>入力は　scn.nextInt()　メソッド</li>
+<li>演算は　ans = a + b の部分</li>
+<li>出力は　System.out.print() の部分</li>
+<li>+　演算子は、数値なら足し算。文字列なら結合を行う</li>
+</ul>
+<h1>　</h1>
+<h2>1.2 データ型と算術演算子</h2>
+<p>下記の内容をSample121.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample121.java" data-raw="public class Sample121 {
+  public static void main(String[] args) {
+    // 台形の面積を計算する
+    double jotei = 4.0;
+    double katei = 6.0;
+    double takasa = 5.0;
+    double menseki = (jotei + katei) * takasa / 2.0;
+    System.out.println(&#x22;台形の面積 = &#x22; + menseki);
+    
+    // お菓子の余りを求める
+    int okasi = 10;
+    int kodomo = 3;
+    int amari = okasi % kodomo;
+    System.out.println(&#x22;お菓子の余り = &#x22; + amari);
+    
+    // 残金の計算をする
+    int zankin = 100000;
+    int nyukin = 200000;
+    zankin += nyukin;
+    System.out.println(&#x22;入金後の残金 = &#x22; + zankin);
+  }
+}
+"><code class="language-Sample121.java">public class Sample121 {
+  public static void main(String[] args) {
+    // 台形の面積を計算する
+    double jotei = 4.0;
+    double katei = 6.0;
+    double takasa = 5.0;
+    double menseki = (jotei + katei) * takasa / 2.0;
+    System.out.println("台形の面積 = " + menseki);
+    
+    // お菓子の余りを求める
+    int okasi = 10;
+    int kodomo = 3;
+    int amari = okasi % kodomo;
+    System.out.println("お菓子の余り = " + amari);
+    
+    // 残金の計算をする
+    int zankin = 100000;
+    int nyukin = 200000;
+    zankin += nyukin;
+    System.out.println("入金後の残金 = " + zankin);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample121.java
+java Sample121
+"><code class="language-Shell:sample.sh">javac Sample121.java
+java Sample121
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>変数は「データ型　変数名;」という構文で宣言する</li>
+<li>整数はint型</li>
+<li>実数はdouble型</li>
+<li>文字はchar型</li>
+<li>文字列はstring型</li>
+<li>true/falseはboolean型</li>
+<li>％は剰余（割り算の余り）を表す</li>
+<li>a + b * C なら　掛け算が優先</li>
+<li>aに１加算する　　a++ もしくは ++a</li>
+<li>aから１減算する　a-- もしくは --a</li>
+<li>１６進数は先頭に0xをつける</li>
+</ul>
+<h1>　</h1>
+<h2>1.3 文字と文字列</h2>
+<p>下記の内容をSample131.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample131.java" data-raw="public class Sample131 {
+  public static void main (String[] args) {
+    String s1, s2, s3;
+    
+    // 文字列を格納する
+    s1 = &#x22;ABCDEFG&#x22;;
+    s2 = &#x22;あいうえお&#x22;;
+    
+    // 文字列を連結する
+    s3 = s1 + s2;
+    System.out.println(s3);
+    
+    // 文字列の長さを表示する
+    System.out.println(&#x22;s3の長さ = &#x22; + s3.length());
+    
+    // 文字列の中から１文字を取得する
+    System.out.println(&#x22;s3の８番目の文字 = &#x22; + s3.charAt(8));
+  }
+} 
+"><code class="language-Sample131.java">public class Sample131 {
+  public static void main (String[] args) {
+    String s1, s2, s3;
+    
+    // 文字列を格納する
+    s1 = "ABCDEFG";
+    s2 = "あいうえお";
+    
+    // 文字列を連結する
+    s3 = s1 + s2;
+    System.out.println(s3);
+    
+    // 文字列の長さを表示する
+    System.out.println("s3の長さ = " + s3.length());
+    
+    // 文字列の中から１文字を取得する
+    System.out.println("s3の８番目の文字 = " + s3.charAt(8));
+  }
+} 
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample131.java
+java Sample131
+"><code class="language-Shell:sample.sh">javac Sample131.java
+java Sample131
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>１文字は char型で　'A'　の様にシングルクォーテーションで囲む</li>
+<li>タブや改行などの特殊文字は　\t \n など先頭に\(もしくは￥)をつける</li>
+<li>文字列は　String型　これはクラスなので先頭が大文字</li>
+<li>Stringクラスには　length()メソッドや charAt()メソッドがある</li>
+</ul>
+<h1>　</h1>
+<h2>1.4 キャスト</h2>
+<p>下記の内容をSample141.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample141.java" data-raw="public class Sample141 {
+  public static void main (String[] args) {
+    // double型の演算結果をint型に変数に格納する
+    double a = 100.0;
+    double b = 3.0;
+    int x = (int) (a / b);
+    System.out.println(&#x22;演算結果 = &#x22; + x);
+    
+    //int型のデータをchar型の変数に格納する
+    int code = 70;
+    char moji = (char)code;
+    System.out.println(&#x22;文字 = &#x22; + moji);
+  }
+}
+"><code class="language-Sample141.java">public class Sample141 {
+  public static void main (String[] args) {
+    // double型の演算結果をint型に変数に格納する
+    double a = 100.0;
+    double b = 3.0;
+    int x = (int) (a / b);
+    System.out.println("演算結果 = " + x);
+    
+    //int型のデータをchar型の変数に格納する
+    int code = 70;
+    char moji = (char)code;
+    System.out.println("文字 = " + moji);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample141.java
+java Sample141
+"><code class="language-Shell:sample.sh">javac Sample141.java
+java Sample141
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>基本的にデータ型が異なる場合はキャスト（変換）が必要</li>
+<li>キャストは　（データ型名）値　という表記になる</li>
+</ul>
+<h1>　</h1>
+<h2>1.5 if文による条件分岐と比較演算子</h2>
+<p>下記の内容をSample151.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample151.java" data-raw="import java.util.Scanner;
+
+public class Sample151 {
+  public static void main (String[] args) {
+    // 西暦をキーボード入力する
+    Scanner scn = new Scanner(System.in);
+    System.out.print(&#x22;西暦を入力してください = &#x22;);
+    int year = scn.nextInt();
+    
+    // うるう年かどうかを判定する
+    if (year % 4 == 0 &#x26;&#x26; year %100 != 0 || year % 400 == 0) {
+      System.out.println(&#x22;うるう年です&#x22;);
+    }
+    else {
+      System.out.println(&#x22;うるう年ではありません&#x22;);
+    }
+  }
+}
+"><code class="language-Sample151.java">import java.util.Scanner;
+
+public class Sample151 {
+  public static void main (String[] args) {
+    // 西暦をキーボード入力する
+    Scanner scn = new Scanner(System.in);
+    System.out.print("西暦を入力してください = ");
+    int year = scn.nextInt();
+    
+    // うるう年かどうかを判定する
+    if (year % 4 == 0 &#x26;&#x26; year %100 != 0 || year % 400 == 0) {
+      System.out.println("うるう年です");
+    }
+    else {
+      System.out.println("うるう年ではありません");
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample151.java
+java Sample151
+"><code class="language-Shell:sample.sh">javac Sample151.java
+java Sample151
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>条件分岐はif文</li>
+<li>比較演算子　大、小　は　＞　＜</li>
+<li>比較演算子　以上・以下は　＞＝　＜＝　（イコールが後ろ）</li>
+<li>比較演算子　等しい、等しくないは　＝＝　！＝</li>
+<li>条件式の連結は　　and(かつ）は　&#x26;&#x26;  or(または）は　|| </li>
+</ul>
+<h1>　</h1>
+<h2>1.6 switchによる条件分岐</h2>
+<p>下記の内容をSample161.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample161.java" data-raw="import java.util.Scanner;
+
+public class Sample161 {
+  public static void main (String[] args) {
+    // 月をキーボード入力する
+    Scanner scn = new Scanner(System.in);
+    System.out.print(&#x22;月を入力してください = &#x22;);
+    int month = scn.nextInt();
+    
+    // 季節を判定する
+    switch (month) {
+      case 3:
+      case 4:
+      case 5:
+        System.out.println(&#x22;春です&#x22;);
+        break;
+      case 6:
+      case 7:
+      case 8:
+        System.out.println(&#x22;夏です&#x22;);
+        break;
+      case 9:
+      case 10:
+      case 11:
+        System.out.println(&#x22;秋です&#x22;);
+        break;
+      case 12:
+      case 1:
+      case 2:
+        System.out.println(&#x22;冬です&#x22;);
+        break;
+      default:
+        System.out.println(&#x22;入力エラーです&#x22;);
+        break;
+    }
+  }
+}
+"><code class="language-Sample161.java">import java.util.Scanner;
+
+public class Sample161 {
+  public static void main (String[] args) {
+    // 月をキーボード入力する
+    Scanner scn = new Scanner(System.in);
+    System.out.print("月を入力してください = ");
+    int month = scn.nextInt();
+    
+    // 季節を判定する
+    switch (month) {
+      case 3:
+      case 4:
+      case 5:
+        System.out.println("春です");
+        break;
+      case 6:
+      case 7:
+      case 8:
+        System.out.println("夏です");
+        break;
+      case 9:
+      case 10:
+      case 11:
+        System.out.println("秋です");
+        break;
+      case 12:
+      case 1:
+      case 2:
+        System.out.println("冬です");
+        break;
+      default:
+        System.out.println("入力エラーです");
+        break;
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample161.java
+java Sample161
+"><code class="language-Shell:sample.sh">javac Sample161.java
+java Sample161
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>一つの値で複数の条件に分岐させる場合にswitch構文を使う</li>
+<li>case 値:がラベルとなり、その次の行から実行される</li>
+<li>break文でswitchのブロックから抜ける</li>
+<li>いずれのcaseにも該当しない場合はdefault:のエントリに処理が移る</li>
+</ul>
+<h1>　</h1>
+<h2>1.7 while文による繰り返し</h2>
+<p>下記の内容をSample171.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample171.java" data-raw="public class Sample171 {
+  public static void main (String[] args) {
+    int a = 60, b= 84;
+    
+    while (a != b) {
+      if (a > b) {
+        a -= b;
+      }
+      else {
+        b -= a;
+      }
+    }
+    System.out.println(&#x22;最大公約数 = &#x22; + a);
+  }
+}
+"><code class="language-Sample171.java">public class Sample171 {
+  public static void main (String[] args) {
+    int a = 60, b= 84;
+    
+    while (a != b) {
+      if (a > b) {
+        a -= b;
+      }
+      else {
+        b -= a;
+      }
+    }
+    System.out.println("最大公約数 = " + a);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample171.java
+java Sample171
+"><code class="language-Shell:sample.sh">javac Sample171.java
+java Sample171
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>whileは繰り返しの基本構文</li>
+<li>最初に条件判定が行われ、結果がtrueならブロック内が実行される</li>
+<li>条件判定が誤っていると無限ループする</li>
+<li>サンプルはユーグリッドの互除法</li>
+</ul>
+<h1>　</h1>
+<h2>1.8 do ～ while文による繰り返し</h2>
+<p>下記の内容をSample181.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample181.java" data-raw="import java.util.Scanner;
+
+public class Sample181 {
+  public static void main (String[] args) {
+    Scanner scn = new Scanner(System.in);
+    int num, ans;
+    
+    // 乱数で1～100の数を選ぶ
+    num = (int)(Math.random() * 100) + 1;
+    
+    // 数を当てるまで繰り返す
+    do {
+      System.out.print(&#x22;いくつだと思いますか？ = &#x22;);
+      ans = scn.nextInt();
+      if (num > ans) {
+        System.out.println(&#x22;もっと大きいです。&#x22;);
+      }
+      else if (num < ans) {
+        System.out.println(&#x22;もっと小さいです。&#x22;);
+      }
+    } while (ans != num);
+    
+    System.out.println(&#x22;正解です！&#x22;);
+  }
+}
+"><code class="language-Sample181.java">import java.util.Scanner;
+
+public class Sample181 {
+  public static void main (String[] args) {
+    Scanner scn = new Scanner(System.in);
+    int num, ans;
+    
+    // 乱数で1～100の数を選ぶ
+    num = (int)(Math.random() * 100) + 1;
+    
+    // 数を当てるまで繰り返す
+    do {
+      System.out.print("いくつだと思いますか？ = ");
+      ans = scn.nextInt();
+      if (num > ans) {
+        System.out.println("もっと大きいです。");
+      }
+      else if (num &#x3C; ans) {
+        System.out.println("もっと小さいです。");
+      }
+    } while (ans != num);
+    
+    System.out.println("正解です！");
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample181.java
+java Sample181
+"><code class="language-Shell:sample.sh">javac Sample181.java
+java Sample181
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>do ～ whileは最後に条件判定が行われる繰り返し</li>
+<li>最後のwhile文にはセミコロンが必要</li>
+</ul>
+<h1>　</h1>
+<h2>1.9 for文による繰り返しと１次元配列</h2>
+<p>下記の内容をSample191.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample191.java" data-raw="public class Sample191 {
+  public static void main (String[] args) {
+    // テストの得点を格納した配列
+    int[] score = { 85, 73, 92, 55, 41 };
+    
+    // 合計値を求める
+    int sum = 0;
+    for (int i = 0; i < score.length; i++) {
+      sum += score[i];
+    }
+    
+    // 平均点を求める
+    double ave = sum / (double)score.length;
+    System.out.println(&#x22;平均点 = &#x22; + ave);
+  }
+}
+"><code class="language-Sample191.java">public class Sample191 {
+  public static void main (String[] args) {
+    // テストの得点を格納した配列
+    int[] score = { 85, 73, 92, 55, 41 };
+    
+    // 合計値を求める
+    int sum = 0;
+    for (int i = 0; i &#x3C; score.length; i++) {
+      sum += score[i];
+    }
+    
+    // 平均点を求める
+    double ave = sum / (double)score.length;
+    System.out.println("平均点 = " + ave);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample191.java
+java Sample191
+"><code class="language-Shell:sample.sh">javac Sample191.java
+java Sample191
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>do ～ whileは最後に条件判定が行われる繰り返し</li>
+<li>最後のwhile文にはセミコロンが必要</li>
+</ul>
+<h1>　</h1>
+<h2>1.10 mainメソッドの引数と１次元配列</h2>
+<p>下記の内容をSample1101.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample1101.java" data-raw="public class Sample1101 {
+  public static void main (String[] args) {
+    for (int i = 0; i < args.length; i++) {
+      System.out.println(i + &#x22;番目の引数 = &#x22; + args[i]);
+    }
+  }
+}
+"><code class="language-Sample1101.java">public class Sample1101 {
+  public static void main (String[] args) {
+    for (int i = 0; i &#x3C; args.length; i++) {
+      System.out.println(i + "番目の引数 = " + args[i]);
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample1101.java
+java Sample1101
+"><code class="language-Shell:sample.sh">javac Sample1101.java
+java Sample1101
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>mainメソッドの引数　String[] argsにはコマンドラインのパラメーターが格納される</li>
+</ul>
+<h1>　</h1>
+<h2>1.11 for文による多重ループと２次元配列</h2>
+<p>下記の内容をSample1111.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample1111.java" data-raw="public class Sample1111 {
+  public static void main (String[] args) {
+    // データを格納した２次元配列
+    String[][] table = {
+      { &#x22;0行0列&#x22;, &#x22;0行1列&#x22;, &#x22;0行2列&#x22;, &#x22;0行3列&#x22;, &#x22;0行4列&#x22; }, 
+      { &#x22;1行0列&#x22;, &#x22;1行1列&#x22;, &#x22;1行2列&#x22; }, 
+      { &#x22;2行0列&#x22;, &#x22;2行1列&#x22;, &#x22;2行2列&#x22;, &#x22;2行3列&#x22; }, 
+    };
+    
+    // ２次元配列のすべての要素を表示する
+    for (int row = 0; row < table.length; row++) {
+      for (int col = 0; col < table[row].length; col++) {
+        System.out.print(table[row][col] + &#x22;\t&#x22;);
+      }
+      System.out.println();
+    }
+  }
+}
+"><code class="language-Sample1111.java">public class Sample1111 {
+  public static void main (String[] args) {
+    // データを格納した２次元配列
+    String[][] table = {
+      { "0行0列", "0行1列", "0行2列", "0行3列", "0行4列" }, 
+      { "1行0列", "1行1列", "1行2列" }, 
+      { "2行0列", "2行1列", "2行2列", "2行3列" }, 
+    };
+    
+    // ２次元配列のすべての要素を表示する
+    for (int row = 0; row &#x3C; table.length; row++) {
+      for (int col = 0; col &#x3C; table[row].length; col++) {
+        System.out.print(table[row][col] + "\t");
+      }
+      System.out.println();
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample1111.java
+java Sample1111
+"><code class="language-Shell:sample.sh">javac Sample1111.java
+java Sample1111
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>添え字が２つある配列を２次元配列と呼ぶ</li>
+<li>配列に値を設定する場合は、最後のセミコロンを忘れずにつける</li>
+<li>table.lengthは最初の次元の個数</li>
+<li>talbe[n].lengthはn番目の内側配列の個数</li>
+</ul>
+<h1>　</h1>
+<h2>1.12 拡張for文による繰り返し</h2>
+<p>下記の内容をSample1121.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample1121.java" data-raw="public class Sample1121 {
+  public static void main (String[] args) {
+    String[] fruit = { &#x22;リンゴ&#x22;, &#x22;バナナ&#x22;, &#x22;ミカン&#x22;, &#x22;メロン&#x22;, &#x22;イチゴ&#x22; };
+    
+    for (String f : fruit) {
+      System.out.println(f);
+    }
+  }
+}
+"><code class="language-Sample1121.java">public class Sample1121 {
+  public static void main (String[] args) {
+    String[] fruit = { "リンゴ", "バナナ", "ミカン", "メロン", "イチゴ" };
+    
+    for (String f : fruit) {
+      System.out.println(f);
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample1121.java
+java Sample1121
+"><code class="language-Shell:sample.sh">javac Sample1121.java
+java Sample1121
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>配列やコレクションなど全ての要素に対して処理を実行できる</li>
+<li>拡張for文はforの後ろに取り出し先変数と取り出し元変数をコロンで区切って書く</li>
+</ul>
+<h1>　</h1>
+<h2>1.13 メソッドの作成</h2>
+<p>下記の内容をSample1131.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample1131.java" data-raw="public class Sample1131 {
+  // daikeiメソッド
+  public static double daikei(double joutei, double katei, double takasa) {
+    double menseki;
+    menseki = (joutei + katei) * takasa / 2.0;
+    return menseki;
+  }
+  
+  // mainメソッド
+  public static void main (String[] args) {
+    double ans = Sample1131.daikei(4.0, 6.0, 5.0);
+    System.out.println(&#x22;台形の面積 = &#x22; + ans);
+  }
+}
+"><code class="language-Sample1131.java">public class Sample1131 {
+  // daikeiメソッド
+  public static double daikei(double joutei, double katei, double takasa) {
+    double menseki;
+    menseki = (joutei + katei) * takasa / 2.0;
+    return menseki;
+  }
+  
+  // mainメソッド
+  public static void main (String[] args) {
+    double ans = Sample1131.daikei(4.0, 6.0, 5.0);
+    System.out.println("台形の面積 = " + ans);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample1131.java
+java Sample1131
+"><code class="language-Shell:sample.sh">javac Sample1131.java
+java Sample1131
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>メソッドはクラスの中に定義する</li>
+<li>呼び出しはクラス名.メソッド名（引数）</li>
+</ul>
+<h1>　</h1>
+<h2>1.14 参照型</h2>
+<p>下記の内容をSample1141.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample1141.java" data-raw="public class Sample1141 {
+  public static void main (String[] args) {
+    int[] a = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] b;
+    
+    b = a;
+    a[1]=9;
+    for (int i = 0; i < b.length; i++) {
+      System.out.print(b[i] + &#x22;, &#x22;);
+    }
+    System.out.println();
+  }
+}
+"><code class="language-Sample1141.java">public class Sample1141 {
+  public static void main (String[] args) {
+    int[] a = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int[] b;
+    
+    b = a;
+    a[1]=9;
+    for (int i = 0; i &#x3C; b.length; i++) {
+      System.out.print(b[i] + ", ");
+    }
+    System.out.println();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample1141.java
+java Sample1141
+"><code class="language-Shell:sample.sh">javac Sample1141.java
+java Sample1141
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>配列やオブジェクトは値そのものが格納されているわけではなく、参照先のアドレスが格納されている。</li>
+<li>なので、このプログラムではa[1]を更新すれば、b[1]の表示も変わる</li>
+</ul>
+<h1>　</h1>
+<h2>1.15 例外処理</h2>
+<p>下記の内容をSample1151.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample1151.java" data-raw="public class Sample1151 {
+  public static void main (String[] args) {
+    int a, b, ans;
+    
+    try {
+      a = Integer.parseInt(args[0]);
+      b = Integer.parseInt(args[1]);
+      ans = a / b;
+      System.out.println(ans);
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+      System.out.println(&#x22;2つのパラメーターを指定してください！&#x22;);
+    }
+    catch (NumberFormatException e) {
+      System.out.println(&#x22;2つの整数を指定してください！&#x22;);
+    }
+    catch (ArithmeticException e) {
+      System.out.println(&#x22;ゼロ除算が行われました！&#x22;);
+    }
+    catch (Exception e) {
+      System.out.println(&#x22;その他の例外が発生しました！&#x22;);
+    }
+  }
+}
+"><code class="language-Sample1151.java">public class Sample1151 {
+  public static void main (String[] args) {
+    int a, b, ans;
+    
+    try {
+      a = Integer.parseInt(args[0]);
+      b = Integer.parseInt(args[1]);
+      ans = a / b;
+      System.out.println(ans);
+    }
+    catch (ArrayIndexOutOfBoundsException e) {
+      System.out.println("2つのパラメーターを指定してください！");
+    }
+    catch (NumberFormatException e) {
+      System.out.println("2つの整数を指定してください！");
+    }
+    catch (ArithmeticException e) {
+      System.out.println("ゼロ除算が行われました！");
+    }
+    catch (Exception e) {
+      System.out.println("その他の例外が発生しました！");
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample1151.java
+java Sample1151
+"><code class="language-Shell:sample.sh">javac Sample1151.java
+java Sample1151
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>tryブロックの中で発生した例外処理がcatchで処理される</li>
+<li>catchではエラー内容別に処理を指定できる</li>
+<li>catch( Exception e)　はその他すべての例外処理を受け取る</li>
+</ul>
+<h1>　</h1>
+<h2>糖衣構文　syntax sugar</h2>
+<p>プログラムでは同じ内容を複数の書き方で記述できる。これらは「知っていなければ」理解できないので、ここでまとめて記載する。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>糖衣構文</th><th>平文　</th><th>備考</th></tr></thead><tbody><tr><td>i++</td><td>i=i+1</td><td>iの評価が先</td></tr><tr><td>++i</td><td>i=i+1</td><td>++演算が先</td></tr><tr><td>i--</td><td>i=i-1</td><td>iの評価が先</td></tr><tr><td>--i</td><td>i=i-1</td><td>--演算が先</td></tr><tr><td>a += 1</td><td>a = a + 1</td><td></td></tr><tr><td>a -= 1</td><td>a = a - 1</td><td></td></tr><tr><td>条件式 ? a : b</td><td>if(条件式) then a else b</td><td>３項演算子</td></tr><tr><td>for (String 代入先:配列) {  　　処理の記述}</td><td></td><td>拡張for文</td></tr></tbody></table>
+<h1>　</h1>
+<h1>2.Javaによるオブジェクト指向プログラミング</h1>
+<h2>2.1 クラスの定義とインスタンスの生成</h2>
+<p>下記の内容をSample211.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample211.java" data-raw="// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前を保存するフィールド
+  private int salary;   // 給与を保存するフィールド
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print(&#x22;私の名前は、&#x22; + this.name + &#x22;です。&#x22;);
+    System.out.println(&#x22;私の給与は、&#x22; + this.salary + &#x22;円です。&#x22;);
+  }
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+}
+
+// Employeeクラスを使うSample211クラスの定義
+public class Sample211 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスを二つ生成する
+    Employee tanaka = new Employee(&#x22;田中一郎&#x22;, 250000);
+    Employee suzuki = new Employee(&#x22;鈴木花子&#x22;, 300000);
+    
+    // それぞれのインスタンスのshowメソッドを呼び出す
+    tanaka.show();
+    suzuki.show();
+  }
+}
+"><code class="language-Sample211.java">// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前を保存するフィールド
+  private int salary;   // 給与を保存するフィールド
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print("私の名前は、" + this.name + "です。");
+    System.out.println("私の給与は、" + this.salary + "円です。");
+  }
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+}
+
+// Employeeクラスを使うSample211クラスの定義
+public class Sample211 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスを二つ生成する
+    Employee tanaka = new Employee("田中一郎", 250000);
+    Employee suzuki = new Employee("鈴木花子", 300000);
+    
+    // それぞれのインスタンスのshowメソッドを呼び出す
+    tanaka.show();
+    suzuki.show();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample211.java
+java Sample211
+"><code class="language-Shell:sample.sh">javac Sample211.java
+java Sample211
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>クラスの要素は３つ（フィールド、メソッド、コンストラクタ）</li>
+<li>フィールドはクラスで利用する変数。通常はprivate設定にして外部からの影響を排除する</li>
+<li>メソッドには引数が使える。フィールド名と被ってもよい。区別するにはクラス側にthisをつける</li>
+<li>コンストラクタはクラス名と同じ名前のメソッド</li>
+<li>コンストラクタはクラス生成時に１回呼ばれる（初期処理として利用する）</li>
+<li>クラスを利用するには、まずクラスのインスタンス（実体）を生成して変数に格納する</li>
+<li>以降は生成されたインスタンスのメソッドを呼び出すことができる</li>
+</ul>
+<h1>　</h1>
+<h2>2.2 メソッドのオーバーライド</h2>
+<p>下記の内容をSample221.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample221.java" data-raw="// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+  private int salary;   // 給与
+  
+  // 引数のないメソッド（すべてのフィールドの値を表示する）
+  public void show() {
+    System.out.print(&#x22;私の名前は、&#x22; + this.name + &#x22;です。&#x22;);
+    System.out.println(&#x22;私の給与は、&#x22; + this.salary + &#x22;円です。&#x22;);
+  }
+  
+  // 引数のあるメソッド（引数で指定したフィールドの値を表示する）
+  public void show(String fieldName) {
+    if (fieldName.equals(&#x22;名前&#x22;)) {
+      System.out.println(&#x22;私の名前は、&#x22; + this.name + &#x22;です。&#x22;);
+    }
+    else if (fieldName.equals(&#x22;給与&#x22;)) {
+      System.out.println(&#x22;私の給与は、&#x22; + this.salary + &#x22;円です。&#x22;);
+    }
+  }
+
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample221 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスを生成する
+    Employee tanaka = new Employee(&#x22;田中一郎&#x22;, 250000);
+
+    // 引数のないメソッドを呼び出す
+    tanaka.show();
+
+    // 引数が１つあるメソッドを呼び出す
+    tanaka.show(&#x22;給与&#x22;);
+    tanaka.show(&#x22;名前&#x22;);
+  }
+}
+"><code class="language-Sample221.java">// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+  private int salary;   // 給与
+  
+  // 引数のないメソッド（すべてのフィールドの値を表示する）
+  public void show() {
+    System.out.print("私の名前は、" + this.name + "です。");
+    System.out.println("私の給与は、" + this.salary + "円です。");
+  }
+  
+  // 引数のあるメソッド（引数で指定したフィールドの値を表示する）
+  public void show(String fieldName) {
+    if (fieldName.equals("名前")) {
+      System.out.println("私の名前は、" + this.name + "です。");
+    }
+    else if (fieldName.equals("給与")) {
+      System.out.println("私の給与は、" + this.salary + "円です。");
+    }
+  }
+
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample221 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスを生成する
+    Employee tanaka = new Employee("田中一郎", 250000);
+
+    // 引数のないメソッドを呼び出す
+    tanaka.show();
+
+    // 引数が１つあるメソッドを呼び出す
+    tanaka.show("給与");
+    tanaka.show("名前");
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample221.java
+java Sample221
+"><code class="language-Shell:sample.sh">javac Sample221.java
+java Sample221
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>同じメソッド名で異なる引数をもつメソッドを定義できる。これをオーバーライドと呼ぶ</li>
+<li>ここではshowメソッドがオーバーライドされている</li>
+</ul>
+<h1>　</h1>
+<h2>2.3 コンストラクタのオーバーライド</h2>
+<p>下記の内容をSample231.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample231.java" data-raw="// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+  private int salary;   // 給与
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print(&#x22;私の名前は、&#x22; + this.name + &#x22;です。&#x22;);
+    System.out.println(&#x22;私の給与は、&#x22; + this.salary + &#x22;円です。&#x22;);
+  }
+  
+  // 引数があるコンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+
+  // 引数がないコンストラクタ
+  public Employee() {
+    this(&#x22;未設定&#x22;,0);
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample231 {
+  public static void main (String[] args) {
+    Employee empA = new Employee(&#x22;田中一郎&#x22;, 250000);
+    Employee empB = new Employee();
+
+    empA.show();
+    empB.show();
+  }
+}
+"><code class="language-Sample231.java">// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+  private int salary;   // 給与
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print("私の名前は、" + this.name + "です。");
+    System.out.println("私の給与は、" + this.salary + "円です。");
+  }
+  
+  // 引数があるコンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+
+  // 引数がないコンストラクタ
+  public Employee() {
+    this("未設定",0);
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample231 {
+  public static void main (String[] args) {
+    Employee empA = new Employee("田中一郎", 250000);
+    Employee empB = new Employee();
+
+    empA.show();
+    empB.show();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample231.java
+java Sample231
+"><code class="language-Shell:sample.sh">javac Sample231.java
+java Sample231
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>コンストラクタもメソッドなのでオーバーライドできる</li>
+<li>thisは自分自身を表すので、this("",0)で引数のあるコンストラクタが呼び出される</li>
+</ul>
+<h1>　</h1>
+<h2>2.4 クラスメンバとインスタンスメンバ</h2>
+<p>下記の内容をSample241.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample241.java" data-raw="// 社員を表すEmployeeクラスの定義
+class Employee {
+  private static int number = 0;  // 社員数   　staticがあるのでクラスメンバ
+  private String name;            // 名前       staticがないのでインスタンスメンバ
+  private int salary;             // 給与       staticがないのでインスタンスメンバ
+  
+  // 名前と給与の値を表示するインスタンスメソッド
+  public void show() {
+    System.out.print(&#x22;私の名前は、&#x22; + this.name + &#x22;です。&#x22;);
+    System.out.println(&#x22;私の給与は、&#x22; + this.salary + &#x22;円です。&#x22;);
+  }
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+    Employee.number++;
+  }
+
+  // 社員数を表示するクラスメソッド   staticがあるのでクラスメンバ
+  public static void showNumber() {
+    System.out.println(&#x22;現在の社員数は = &#x22; + Employee.number + &#x22;人です。&#x22;); 
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample241 {
+  public static void main (String[] args) {
+    // １つ目のインスタンスを生成し、社員数を表示する
+    Employee tanaka = new Employee(&#x22;田中一郎&#x22;, 250000);
+    Employee.showNumber();
+    tanaka.show();
+    
+    // ２つ目のインスタンスを生成し、社員数を表示する
+    Employee suzuki = new Employee(&#x22;鈴木花子&#x22;, 300000);
+    Employee.showNumber();
+    suzuki.show();
+  }
+}
+"><code class="language-Sample241.java">// 社員を表すEmployeeクラスの定義
+class Employee {
+  private static int number = 0;  // 社員数   　staticがあるのでクラスメンバ
+  private String name;            // 名前       staticがないのでインスタンスメンバ
+  private int salary;             // 給与       staticがないのでインスタンスメンバ
+  
+  // 名前と給与の値を表示するインスタンスメソッド
+  public void show() {
+    System.out.print("私の名前は、" + this.name + "です。");
+    System.out.println("私の給与は、" + this.salary + "円です。");
+  }
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+    Employee.number++;
+  }
+
+  // 社員数を表示するクラスメソッド   staticがあるのでクラスメンバ
+  public static void showNumber() {
+    System.out.println("現在の社員数は = " + Employee.number + "人です。"); 
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample241 {
+  public static void main (String[] args) {
+    // １つ目のインスタンスを生成し、社員数を表示する
+    Employee tanaka = new Employee("田中一郎", 250000);
+    Employee.showNumber();
+    tanaka.show();
+    
+    // ２つ目のインスタンスを生成し、社員数を表示する
+    Employee suzuki = new Employee("鈴木花子", 300000);
+    Employee.showNumber();
+    suzuki.show();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample241.java
+java Sample241
+"><code class="language-Shell:sample.sh">javac Sample241.java
+java Sample241
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>クラスに定義されたフィールドとメソッドをメンバと呼ぶ</li>
+<li>Staticを指定したメンバ（フィールドやメソッド）はクラスメンバとなる</li>
+<li>クラスメンバはクラス名.メンバ名の構文（例：Employee.showNumber）</li>
+<li>クラスメンバはメモリ上に１つだけ存在し、共有される（例：Employee.showNumber）</li>
+<li>Staticを指定しないメンバはインスタンスメンバとなる</li>
+<li>インスタンスメンバは宣言される都度、個別に生成される</li>
+<li>インスタンスメンバはインスタンス名.メンバ名の構文（例：suzuki.show）</li>
+</ul>
+<h1>　</h1>
+<h2>2.5 クラスの継承とメソッドのオーバーライド</h2>
+<p>下記の内容をSample251.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample251.java" data-raw="// 社員を表すEmployeeクラスの定義
+class Employee {
+  protected String name;  // 名前
+  protected int salary;   // 給与
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print(&#x22;私の名前は、&#x22; + this.name + &#x22;です。&#x22;);
+    System.out.println(&#x22;私の給与は、&#x22; + this.salary + &#x22;円です。&#x22;);
+  }
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+}
+
+// 管理者を表すManagerクラスの定義（Employeeクラスを継承する）
+class Manager extends Employee {
+  private String post;      // 役職
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print(&#x22;私の役職は、&#x22; + this.post + &#x22;です。&#x22;);
+    super.show();
+  }
+  
+  // コンストラクタ
+  public Manager(String post, String name, int salary) {
+    super(name,salary);
+    this.post = post;
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample251 {
+  public static void main (String[] args) {
+    // Managerクラスのインスタンスを生成し、フィールドの値を表示する
+    Manager sato = new Manager(&#x22;課長&#x22;, &#x22;佐藤次郎&#x22;, 500000);
+    sato.show();
+  }
+}
+"><code class="language-Sample251.java">// 社員を表すEmployeeクラスの定義
+class Employee {
+  protected String name;  // 名前
+  protected int salary;   // 給与
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print("私の名前は、" + this.name + "です。");
+    System.out.println("私の給与は、" + this.salary + "円です。");
+  }
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+}
+
+// 管理者を表すManagerクラスの定義（Employeeクラスを継承する）
+class Manager extends Employee {
+  private String post;      // 役職
+  
+  // フィールドの値を表示するメソッド
+  public void show() {
+    System.out.print("私の役職は、" + this.post + "です。");
+    super.show();
+  }
+  
+  // コンストラクタ
+  public Manager(String post, String name, int salary) {
+    super(name,salary);
+    this.post = post;
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample251 {
+  public static void main (String[] args) {
+    // Managerクラスのインスタンスを生成し、フィールドの値を表示する
+    Manager sato = new Manager("課長", "佐藤次郎", 500000);
+    sato.show();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample251.java
+java Sample251
+"><code class="language-Shell:sample.sh">javac Sample251.java
+java Sample251
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>既存のクラスに機能を付け足して、新たなクラスを定義することを継承と呼ぶ</li>
+<li>継承元をスーパークラス、継承先をサブクラスと呼ぶ</li>
+<li>継承の宣言は　class サブクラス名 extends スーパークラス名　と書く</li>
+<li>スーパークラスのメンバはサブクラスに継承されるが、コンストラクタは個別に設定する必要がある</li>
+<li>スーパークラスから継承したメンバ（フィールドやメソッド）はオーバーライドできる</li>
+<li>super.メソッド名でスーパークラスのメンバを呼び出せる</li>
+<li>super()でスーパークラスのコンストラクタを呼び出せる</li>
+<li>この例題では、スーパークラスのフィールド定義のアクセス修飾子としてprotectedをしているしているが特に意味はない。</li>
+</ul>
+<p>修飾子の種類と内容</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>修飾子の種類</th><th>キーワード</th><th>意味（機能）</th></tr></thead><tbody><tr><td>アクセス修飾子</td><td>なし</td><td>同一パッケージ内でのみ利用可能</td></tr><tr><td></td><td>private</td><td>同じクラス内でのみ使用可能</td></tr><tr><td></td><td>protected</td><td>同一パッケージとサブクラスで使用可能</td></tr><tr><td></td><td>public</td><td>どこからも使用可能</td></tr><tr><td>メソッドタイプ</td><td>static</td><td>クラス固有のメソッドとする</td></tr><tr><td></td><td>abstract</td><td>実装を含まない抽象的メソッドとする</td></tr><tr><td></td><td>final</td><td>サブクラスでオーバーライド（上書き変更）不可のメソッドとする</td></tr><tr><td></td><td>synchronized</td><td>オブジェクトの同期を行うメソッドとする</td></tr><tr><td></td><td>native</td><td>特定のマシン固有の言語で提供されるメソッド</td></tr></tbody></table>
+<h1>　</h1>
+<h2>2.6 カプセル化とアクセサメソッド</h2>
+<p>下記の内容をSample261.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample261.java" data-raw="// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+  private int salary;   // 給与
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+
+  // 名前を書き込むメソッド
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  // 名前を読み出すメソッド
+  public String getName() {
+    return this.name;
+  }
+
+  // 給与を書き込むメソッド
+  public void setSalary(int salary) {
+    // マイナスの給与は受け付けない
+    if (salary >= 0) {
+      this.salary = salary;
+    }
+  }
+
+  // 給与を読み出すメソッド
+  public int getSalary() {
+    return this.salary;
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample261 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスを生成する
+    Employee emp = new Employee(&#x22;未設定&#x22;,0);
+    
+    // セッタを使ってフィールドに書き込む
+    emp.setName(&#x22;田中一郎&#x22;);
+    emp.setSalary(250000);
+    
+    // ゲッタを使ってフィールドから読み出す
+    System.out.println(&#x22;氏名 = &#x22; + emp.getName());
+    System.out.println(&#x22;給与 = &#x22; + emp.getSalary());
+    
+    // フィールドに不適切な値を書き込む
+    emp.setSalary(-100000);
+    
+    // フィールドの値を表示する（不適切な値は書き込まれていない)
+    System.out.println(&#x22;給与 = &#x22; + emp.getSalary());
+    
+  }
+}
+"><code class="language-Sample261.java">// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+  private int salary;   // 給与
+  
+  // コンストラクタ
+  public Employee(String name, int salary) {
+    this.name = name;
+    this.salary = salary;
+  }
+
+  // 名前を書き込むメソッド
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  // 名前を読み出すメソッド
+  public String getName() {
+    return this.name;
+  }
+
+  // 給与を書き込むメソッド
+  public void setSalary(int salary) {
+    // マイナスの給与は受け付けない
+    if (salary >= 0) {
+      this.salary = salary;
+    }
+  }
+
+  // 給与を読み出すメソッド
+  public int getSalary() {
+    return this.salary;
+  }
+}
+
+// Employeeクラスをテストするクラス
+public class Sample261 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスを生成する
+    Employee emp = new Employee("未設定",0);
+    
+    // セッタを使ってフィールドに書き込む
+    emp.setName("田中一郎");
+    emp.setSalary(250000);
+    
+    // ゲッタを使ってフィールドから読み出す
+    System.out.println("氏名 = " + emp.getName());
+    System.out.println("給与 = " + emp.getSalary());
+    
+    // フィールドに不適切な値を書き込む
+    emp.setSalary(-100000);
+    
+    // フィールドの値を表示する（不適切な値は書き込まれていない)
+    System.out.println("給与 = " + emp.getSalary());
+    
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample261.java
+java Sample261
+"><code class="language-Shell:sample.sh">javac Sample261.java
+java Sample261
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>カプセル化とは外部からのアクセスを限定することで独立性を高めるコーディングの作法</li>
+<li>基本的にはフィールドをprivateとして宣言することで外部から隠蔽する</li>
+<li>フィールドへのアクセスはアクセサメソッドを通じてアクセスする</li>
+<li>アクセサメソッドはgetフィールド名、setフィールド名として定義する</li>
+<li>これらはgetter,setterと呼ばれる</li>
+</ul>
+<h1>　</h1>
+<h2>2.7 抽象クラスと多態性</h2>
+<p>下記の内容をSample271.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample271.java" data-raw="// ペットを表すPetクラスの定義（抽象クラス）
+abstract class Pet {
+  // 鳴くメソッド（抽象メソッド）
+  public abstract void speak();
+}
+
+// 犬を表すDogクラスの定義
+class Dog extends Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println(&#x22;ワン！&#x22;);
+  }
+}
+
+// 猫を表すCatクラスの定義
+class Cat extends Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println(&#x22;ニャン！&#x22;);
+  }
+}
+
+// DogクラスとCatクラスをテストするクラス
+public class Sample271 {
+  public static void main (String[] args) {
+    // Petクラスの配列を用意する
+    Pet[] p = new Pet[5];
+    
+    // 配列にDogクラスとCatクラスのインスタンスを格納する
+    p[0] = new Dog();
+    p[1] = new Cat();
+    p[2] = new Dog();
+    p[3] = new Cat();
+    p[4] = new Cat();
+    
+    // それぞれのメソッドを呼び出す
+    for (int i = 0; i < p.length; i++) {
+      p[i].speak();
+    }
+  }
+}
+"><code class="language-Sample271.java">// ペットを表すPetクラスの定義（抽象クラス）
+abstract class Pet {
+  // 鳴くメソッド（抽象メソッド）
+  public abstract void speak();
+}
+
+// 犬を表すDogクラスの定義
+class Dog extends Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println("ワン！");
+  }
+}
+
+// 猫を表すCatクラスの定義
+class Cat extends Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println("ニャン！");
+  }
+}
+
+// DogクラスとCatクラスをテストするクラス
+public class Sample271 {
+  public static void main (String[] args) {
+    // Petクラスの配列を用意する
+    Pet[] p = new Pet[5];
+    
+    // 配列にDogクラスとCatクラスのインスタンスを格納する
+    p[0] = new Dog();
+    p[1] = new Cat();
+    p[2] = new Dog();
+    p[3] = new Cat();
+    p[4] = new Cat();
+    
+    // それぞれのメソッドを呼び出す
+    for (int i = 0; i &#x3C; p.length; i++) {
+      p[i].speak();
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample271.java
+java Sample271
+"><code class="language-Shell:sample.sh">javac Sample271.java
+java Sample271
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>犬と猫などの別のクラスを一つのクラスとして扱いたい場合に抽象クラスを設定する</li>
+<li>抽象クラスはabstract指定された抽象メソッドを持つ（通常のメソッドがあってもよい）</li>
+<li>抽象クラスはインスタンス化できない。必ず継承されたサブクラスを利用する</li>
+<li>継承されたサブクラスでは必ず抽象メソッドをオーバーライドしなければならない</li>
+<li>これらの機能により、犬と猫のクラスインスタンスを一つの配列に代入し、それぞれのメソッドを呼び出すことができる（例：p[i].speak）</li>
+<li>このように本来は異なるクラスのメソッドを同一視できる仕組みを多態性（ポリモーフィズム）と呼ぶ</li>
+</ul>
+<h1>　</h1>
+<h2>2.8 インターフェースと多態性</h2>
+<p>下記の内容をSample281.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample281.java" data-raw="// ペットを表すPetインターフェースの定義
+interface Pet {
+  // 鳴くメソッド（抽象メソッド）
+  public abstract void speak();
+}
+
+// 犬を表すDogクラスの定義
+class Dog implements Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println(&#x22;ワン！&#x22;);
+  }
+}
+
+// 猫を表すCatクラスの定義
+class Cat implements Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println(&#x22;ニャン！&#x22;);
+  }
+}
+
+// DogクラスとCatクラスをテストするクラス
+public class Sample281 {
+  public static void main (String[] args) {
+    // Petクラスの配列を用意する
+    Pet[] p = new Pet[5];
+    
+    // 配列にDogクラスとCatクラスのインスタンスを格納する
+    p[0] = new Dog();
+    p[1] = new Cat();
+    p[2] = new Dog();
+    p[3] = new Cat();
+    p[4] = new Cat();
+    
+    // それぞれのメソッドを呼び出す
+    for (int i = 0; i < p.length; i++) {
+      p[i].speak();
+    }
+  }
+}
+"><code class="language-Sample281.java">// ペットを表すPetインターフェースの定義
+interface Pet {
+  // 鳴くメソッド（抽象メソッド）
+  public abstract void speak();
+}
+
+// 犬を表すDogクラスの定義
+class Dog implements Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println("ワン！");
+  }
+}
+
+// 猫を表すCatクラスの定義
+class Cat implements Pet {
+  // 鳴くメソッドの実装
+  public void speak() {
+    System.out.println("ニャン！");
+  }
+}
+
+// DogクラスとCatクラスをテストするクラス
+public class Sample281 {
+  public static void main (String[] args) {
+    // Petクラスの配列を用意する
+    Pet[] p = new Pet[5];
+    
+    // 配列にDogクラスとCatクラスのインスタンスを格納する
+    p[0] = new Dog();
+    p[1] = new Cat();
+    p[2] = new Dog();
+    p[3] = new Cat();
+    p[4] = new Cat();
+    
+    // それぞれのメソッドを呼び出す
+    for (int i = 0; i &#x3C; p.length; i++) {
+      p[i].speak();
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample281.java
+java Sample281
+"><code class="language-Shell:sample.sh">javac Sample281.java
+java Sample281
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>抽象クラスが抽象メソッドのみで構成される場合、インターフェースとして宣言することができる。</li>
+<li>インターフェース宣言された抽象メソッドにはabstract宣言しなくてよい</li>
+<li>インターフェースの処理内容を記述するためのクラスは implementsとして宣言する</li>
+<li>インターフェースを実装した各クラスは抽象クラスと同様に多態性をもっている</li>
+</ul>
+<h1>　</h1>
+<h2>2.9 集約</h2>
+<p>下記の内容をSample291.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample291.java" data-raw="// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+
+  // フィールドの値を返すメソッド
+  public String getName() {
+    return this.name;
+  }
+
+  // コンストラクタ
+  public Employee(String name) {
+    this.name = name;
+  }
+}
+
+// 会社を表すCompanyクラスの定義(Employeeクラスを集約する)
+class Company {
+  private String name;      // 会社名
+  private Employee[] emp;   // 社員
+  
+  // 会社の情報を表示するメソッド
+  public void showInfo() {
+    System.out.println(&#x22;会社名：&#x22; + this.name);
+    for (int i = 0; i < this.emp.length; i++) {
+      System.out.println(&#x22;社員名：&#x22; + this.emp[i].getName());
+    }
+  }
+  
+  // コンストラクタ
+  public Company(String name, Employee[] emp) {
+    this.name = name;
+    this.emp = emp;
+  }
+}
+
+// Companyクラスをテストするクラス
+public class Sample291 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスの配列を作成する
+    Employee[] emp = {
+      new Employee(&#x22;田中一郎&#x22;),
+      new Employee(&#x22;鈴木花子&#x22;),
+      new Employee(&#x22;佐藤次郎&#x22;)
+    };
+    
+    // Companyクラスのインスタンスを作成する
+    Company cmp = new Company(&#x22;SEプラス&#x22;, emp);
+    
+    // 会社の情報を表示する
+    cmp.showInfo();
+  }
+}
+"><code class="language-Sample291.java">// 社員を表すEmployeeクラスの定義
+class Employee {
+  private String name;  // 名前
+
+  // フィールドの値を返すメソッド
+  public String getName() {
+    return this.name;
+  }
+
+  // コンストラクタ
+  public Employee(String name) {
+    this.name = name;
+  }
+}
+
+// 会社を表すCompanyクラスの定義(Employeeクラスを集約する)
+class Company {
+  private String name;      // 会社名
+  private Employee[] emp;   // 社員
+  
+  // 会社の情報を表示するメソッド
+  public void showInfo() {
+    System.out.println("会社名：" + this.name);
+    for (int i = 0; i &#x3C; this.emp.length; i++) {
+      System.out.println("社員名：" + this.emp[i].getName());
+    }
+  }
+  
+  // コンストラクタ
+  public Company(String name, Employee[] emp) {
+    this.name = name;
+    this.emp = emp;
+  }
+}
+
+// Companyクラスをテストするクラス
+public class Sample291 {
+  public static void main (String[] args) {
+    // Employeeクラスのインスタンスの配列を作成する
+    Employee[] emp = {
+      new Employee("田中一郎"),
+      new Employee("鈴木花子"),
+      new Employee("佐藤次郎")
+    };
+    
+    // Companyクラスのインスタンスを作成する
+    Company cmp = new Company("SEプラス", emp);
+    
+    // 会社の情報を表示する
+    cmp.showInfo();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample291.java
+java Sample291
+"><code class="language-Shell:sample.sh">javac Sample291.java
+java Sample291
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>あるクラスが別のクラスのインスタンスを持つことを集約と呼ぶ</li>
+<li>この例では「会社クラス」には「社員クラス」が１：多の関係で集約されている</li>
+<li>なお、1:1の関係でも集約と呼ぶ</li>
+</ul>
+<h1>　</h1>
+<h2>2.10 オブジェクトの比較とキャスト</h2>
+<p>下記の内容をSample2101.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample2101.java" data-raw="// 点を表すPointクラス
+class Point {
+  private int x;    // X座標
+  private int y;    // Y座標
+  
+  // equalメソッドをオーバーライドする
+  public boolean equals(Object obj) {
+    return this.x == ((Point)obj).x &#x26;&#x26; this.y == ((Point)obj).y;
+  }
+  
+  // コンストラクタ
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// Pointクラスをテストするクラス
+public class Sample2101 {
+  public static void main (String[] args) {
+    // 同じ座標でPointクラスのインスタンスを生成する
+    Point p1 = new Point(123, 456);
+    Point p2 = new Point(123, 456);
+    
+    // p3が参照するインスタンスをp1と同じにする
+    Point p3 = p1;
+    
+    // ==演算子で比較する（等値）
+    System.out.println(&#x22;p1 == p2 は、&#x22; + (p1 == p2) + &#x22;です。&#x22;);
+    System.out.println(&#x22;p1 == p3 は、&#x22; + (p1 == p3) + &#x22;です。&#x22;);
+
+    // equalsメソッドで比較する（等価）
+    System.out.println(&#x22;p1.equals(p2)は、&#x22; + p1.equals(p2) + &#x22;です。&#x22;);
+    System.out.println(&#x22;p1.equals(p3)は、&#x22; + p1.equals(p3) + &#x22;です。&#x22;);
+  }
+}
+"><code class="language-Sample2101.java">// 点を表すPointクラス
+class Point {
+  private int x;    // X座標
+  private int y;    // Y座標
+  
+  // equalメソッドをオーバーライドする
+  public boolean equals(Object obj) {
+    return this.x == ((Point)obj).x &#x26;&#x26; this.y == ((Point)obj).y;
+  }
+  
+  // コンストラクタ
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// Pointクラスをテストするクラス
+public class Sample2101 {
+  public static void main (String[] args) {
+    // 同じ座標でPointクラスのインスタンスを生成する
+    Point p1 = new Point(123, 456);
+    Point p2 = new Point(123, 456);
+    
+    // p3が参照するインスタンスをp1と同じにする
+    Point p3 = p1;
+    
+    // ==演算子で比較する（等値）
+    System.out.println("p1 == p2 は、" + (p1 == p2) + "です。");
+    System.out.println("p1 == p3 は、" + (p1 == p3) + "です。");
+
+    // equalsメソッドで比較する（等価）
+    System.out.println("p1.equals(p2)は、" + p1.equals(p2) + "です。");
+    System.out.println("p1.equals(p3)は、" + p1.equals(p3) + "です。");
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample2101.java
+java Sample2101
+"><code class="language-Shell:sample.sh">javac Sample2101.java
+java Sample2101
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>オブジェクトの比較を行うと、オブジェクトの中身ではなく、インスタンスの比較が行われる</li>
+<li>よってp1==p2は同じオブジェクトではないため、falseとなる</li>
+<li>このような場合は、比較するメソッドをオーバーライドすることで、値の比較を実現させる</li>
+<li>この例ではequalsメソッドをオーバーライドしているが、引数がobjなので、そのままでは座標が取り出せない。このため(Point)と記述してキャストしている</li>
+</ul>
+<h1>　</h1>
+<h2>2.11 オブジェクトを引数に渡す、オブジェクトを戻り値として返す</h2>
+<p>下記の内容をSample2111.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample2111.java" data-raw="// 点を表すPointクラス
+class Point {
+  private int x;    // X座標
+  private int y;    // Y座標
+  
+  // equalメソッドをオーバーライドする
+  public boolean equals(Object obj) {
+    return this.x == ((Point)obj).x &#x26;&#x26; this.y == ((Point)obj).y;
+  }
+  
+  // コンストラクタ
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+  
+  // ２つの点の座標を加えた点を生成するメソッド
+  public static Point add(Point p1, Point p2) {
+    return new Point(p1.x + p2.x, p1.y + p2.y);
+  }
+  
+  // toStringメソッドをオーバーライドする
+  public String toString() {
+    return &#x22;x = &#x22; + this.x + &#x22;, y = &#x22; + this.y;
+  }
+}
+
+// Pointクラスをテストするクラス
+public class Sample2111 {
+  public static void main (String[] args) {
+    // ２つの点を生成する
+    Point p1 = new Point(10, 20);
+    Point p2 = new Point(30, 40);
+    
+    // ２つの点の座標を加えた点を生成する
+    Point p3 = Point.add(p1, p2);
+    
+    // 点の座標を表示する
+    System.out.println(p3);
+  }
+}
+"><code class="language-Sample2111.java">// 点を表すPointクラス
+class Point {
+  private int x;    // X座標
+  private int y;    // Y座標
+  
+  // equalメソッドをオーバーライドする
+  public boolean equals(Object obj) {
+    return this.x == ((Point)obj).x &#x26;&#x26; this.y == ((Point)obj).y;
+  }
+  
+  // コンストラクタ
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+  
+  // ２つの点の座標を加えた点を生成するメソッド
+  public static Point add(Point p1, Point p2) {
+    return new Point(p1.x + p2.x, p1.y + p2.y);
+  }
+  
+  // toStringメソッドをオーバーライドする
+  public String toString() {
+    return "x = " + this.x + ", y = " + this.y;
+  }
+}
+
+// Pointクラスをテストするクラス
+public class Sample2111 {
+  public static void main (String[] args) {
+    // ２つの点を生成する
+    Point p1 = new Point(10, 20);
+    Point p2 = new Point(30, 40);
+    
+    // ２つの点の座標を加えた点を生成する
+    Point p3 = Point.add(p1, p2);
+    
+    // 点の座標を表示する
+    System.out.println(p3);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample2111.java
+java Sample2111
+"><code class="language-Shell:sample.sh">javac Sample2111.java
+java Sample2111
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>メソッドの引数や戻り値として、クラスを指定することができる</li>
+<li>この例では add メソッドの戻り値がPointクラスとして定義され、引数もPointクラスで定義されている</li>
+<li>toStringはオブジェクトの文字列表現であるが、この例ではオーバーライドされているため、println(p3)とするだけで内容が表示される</li>
+</ul>
+<h1>　</h1>
+<h2>2.12 例外クラスの作成と例外のスロー</h2>
+<p>下記の内容をSample2121.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample2121.java" data-raw="// 独自の例外クラスの定義
+class InvalidYearException extends Exception {
+  // コンストラクタ
+  public InvalidYearException(String message) {
+    super(message);
+  }
+}
+
+// 独自の例外クラスをテストするクラス
+public class Sample2121 {
+  // うるう年の判定をするメソッド
+  public static boolean isLeapYear(int year) throws InvalidYearException {
+    if (year < 0) {
+      // 西暦がマイナスの場合は例外をスローする
+      throw new InvalidYearException(&#x22;西暦にマイナスが指定されました！&#x22;);
+    }
+    else {
+      return year % 4 == 0 &#x26;&#x26; year % 100 != 0 || year % 400 == 0 ;
+    }
+  }
+
+  public static void main (String[] args) {
+    try {
+      System.out.println(&#x22;2020年 = &#x22; + Sample2121.isLeapYear(2020));
+      System.out.println(&#x22;-123年 = &#x22; + Sample2121.isLeapYear(-123));
+    }
+    catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+}
+"><code class="language-Sample2121.java">// 独自の例外クラスの定義
+class InvalidYearException extends Exception {
+  // コンストラクタ
+  public InvalidYearException(String message) {
+    super(message);
+  }
+}
+
+// 独自の例外クラスをテストするクラス
+public class Sample2121 {
+  // うるう年の判定をするメソッド
+  public static boolean isLeapYear(int year) throws InvalidYearException {
+    if (year &#x3C; 0) {
+      // 西暦がマイナスの場合は例外をスローする
+      throw new InvalidYearException("西暦にマイナスが指定されました！");
+    }
+    else {
+      return year % 4 == 0 &#x26;&#x26; year % 100 != 0 || year % 400 == 0 ;
+    }
+  }
+
+  public static void main (String[] args) {
+    try {
+      System.out.println("2020年 = " + Sample2121.isLeapYear(2020));
+      System.out.println("-123年 = " + Sample2121.isLeapYear(-123));
+    }
+    catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample2121.java
+java Sample2121
+"><code class="language-Shell:sample.sh">javac Sample2121.java
+java Sample2121
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>自分で例外クラスを作成することもできる</li>
+<li>独自の例外クラスを作る場合は、まずExceptionを継承した新しいクラスを作成する</li>
+<li>メソッド内で必要なチェックを行い、throw関数を使って独自の例外クラスを呼び出す</li>
+</ul>
+<h1>　</h1>
+<h2>2.13 ジェネリクスとボクシング</h2>
+<p>下記の内容をSample2131.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample2131.java" data-raw="// 任意のデータ型で点を表すクラス
+class Point<T> {
+  private T x;    // X座標
+  private T y;    // Y座標
+  
+  // toStringメソッドをオーバーライドする
+  public String toString() {
+    return &#x22;x = &#x22; + this.x + &#x22;, y = &#x22; + this.y;
+  }
+  
+  // コンストラクタ
+  public Point(T x, T y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// Pointクラスをテストするクラス
+public class Sample2131 {
+  public static void main (String[] args) {
+    // Integer型のPointクラスのインスタンスを生成する
+    // int型の10, 20がIntegerクラスにボクシングされる
+    Point <Integer> p1 = new Point<Integer>(10, 20);
+    System.out.println(p1);
+
+    // Double型のPointクラスのインスタンスを生成する
+    // double型の1.23, 4.56がDoubleクラスにボクシングされる
+    Point <Double> p2 = new Point<Double>(1.23, 4.56);
+    System.out.println(p2);
+  }
+}
+"><code class="language-Sample2131.java">// 任意のデータ型で点を表すクラス
+class Point&#x3C;T> {
+  private T x;    // X座標
+  private T y;    // Y座標
+  
+  // toStringメソッドをオーバーライドする
+  public String toString() {
+    return "x = " + this.x + ", y = " + this.y;
+  }
+  
+  // コンストラクタ
+  public Point(T x, T y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// Pointクラスをテストするクラス
+public class Sample2131 {
+  public static void main (String[] args) {
+    // Integer型のPointクラスのインスタンスを生成する
+    // int型の10, 20がIntegerクラスにボクシングされる
+    Point &#x3C;Integer> p1 = new Point&#x3C;Integer>(10, 20);
+    System.out.println(p1);
+
+    // Double型のPointクラスのインスタンスを生成する
+    // double型の1.23, 4.56がDoubleクラスにボクシングされる
+    Point &#x3C;Double> p2 = new Point&#x3C;Double>(1.23, 4.56);
+    System.out.println(p2);
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample2131.java
+java Sample2131
+"><code class="language-Shell:sample.sh">javac Sample2131.java
+java Sample2131
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>フィールドやメソッドの引数、戻り値の型を、オブジェクトを生成する際に指定できる機能をジェネリクスと呼ぶ</li>
+<li>従来はオブジェクトに実体数字を渡すためには、実体数字を一旦オブジェクト化する必要があったが、現在ではボクシング（Boxing:箱に入れる)機能でスッキリと記述できるようになった</li>
+</ul>
+<h1>　</h1>
+<h2>2.14 列挙型</h2>
+<p>下記の内容をSample2141.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample2141.java" data-raw="// 列挙型Handの定義
+enum Hand {
+  GU, CHOKI, PA   // それぞれの定数には重複しない値が割り当てられる
+}
+
+// 列挙型Handをテストするクラス
+public class Sample2141 {
+  public static String judge(Hand p1, Hand p2) {
+    if (p1 == p2) {
+      return &#x22;あいこ&#x22;;
+    }
+    else if (p1 == Hand.GU    &#x26;&#x26; p2 == Hand.CHOKI || 
+             p1 == Hand.CHOKI &#x26;&#x26; p2 == Hand.PA    ||
+             p1 == Hand.PA    &#x26;&#x26; p2 == Hand.GU      ) { 
+      return &#x22;勝ち&#x22;;
+    }
+    else {
+      return &#x22;負け&#x22;;
+    }
+  }
+  
+  // メインメソッド
+  public static void main (String[] args) {
+    System.out.println(Sample2141.judge(Hand.GU,Hand.GU));
+    System.out.println(Sample2141.judge(Hand.CHOKI,Hand.PA));
+    System.out.println(Sample2141.judge(Hand.PA,Hand.CHOKI));
+  }
+}
+"><code class="language-Sample2141.java">// 列挙型Handの定義
+enum Hand {
+  GU, CHOKI, PA   // それぞれの定数には重複しない値が割り当てられる
+}
+
+// 列挙型Handをテストするクラス
+public class Sample2141 {
+  public static String judge(Hand p1, Hand p2) {
+    if (p1 == p2) {
+      return "あいこ";
+    }
+    else if (p1 == Hand.GU    &#x26;&#x26; p2 == Hand.CHOKI || 
+             p1 == Hand.CHOKI &#x26;&#x26; p2 == Hand.PA    ||
+             p1 == Hand.PA    &#x26;&#x26; p2 == Hand.GU      ) { 
+      return "勝ち";
+    }
+    else {
+      return "負け";
+    }
+  }
+  
+  // メインメソッド
+  public static void main (String[] args) {
+    System.out.println(Sample2141.judge(Hand.GU,Hand.GU));
+    System.out.println(Sample2141.judge(Hand.CHOKI,Hand.PA));
+    System.out.println(Sample2141.judge(Hand.PA,Hand.CHOKI));
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample2141.java
+java Sample2141
+"><code class="language-Shell:sample.sh">javac Sample2141.java
+java Sample2141
+</code></pre>
+<h3>解説</h3>
+<ul>
+<li>複数の定数をまとめて設定でき、これを列挙型と呼ぶ</li>
+<li>列挙型はクラスとして定義できるため、型として指定することでプログラムの間違いがへる</li>
+</ul>
+<h1>　</h1>
+<h2>2.15 ガベージコレクション</h2>
+<h3>解説</h3>
+<ul>
+<li>new演算子はオブジェクトを実メモリに展開するという意味がある</li>
+<li>これはJavaの元となったC＋＋のお作法</li>
+<li>C++ではnewでオブジェクトを生成し、deleteでオブジェクトを破棄していた</li>
+<li>Javaではオブジェクトの破棄はプログラマが実装するのではなく、ガベージコレクションというバッチ処理で定期的に不要オブジェクトの破棄が行われる</li>
+</ul>
+<h1>　</h1>
+<h1>3.Javaの基本的なクラスライブラリ</h1>
+<h2>3.1 Mathクラス</h2>
+<p>下記の内容をSample311.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample311.java" data-raw="public class Sample311 {
+  public static void main (String[] args) {
+    // 2の3乗を求める
+    System.out.println(&#x22;2の3乗 = &#x22; + Math.pow(2, 3));
+    
+    // 2の平方根を求める
+    System.out.println(&#x22;2の平方根 = &#x22; + Math.sqrt(2));
+    
+    // 1～6の乱数を１０個生成する
+    System.out.print(&#x22;1～6の整数 = &#x22;);
+    for (int i = 1; i<=10; i++) {
+      System.out.print((int)(Math.random() * 6 + 1) + &#x22;, &#x22;);
+    }
+    System.out.println();
+  }
+}
+"><code class="language-Sample311.java">public class Sample311 {
+  public static void main (String[] args) {
+    // 2の3乗を求める
+    System.out.println("2の3乗 = " + Math.pow(2, 3));
+    
+    // 2の平方根を求める
+    System.out.println("2の平方根 = " + Math.sqrt(2));
+    
+    // 1～6の乱数を１０個生成する
+    System.out.print("1～6の整数 = ");
+    for (int i = 1; i&#x3C;=10; i++) {
+      System.out.print((int)(Math.random() * 6 + 1) + ", ");
+    }
+    System.out.println();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample311.java
+java Sample311
+"><code class="language-Shell:sample.sh">javac Sample311.java
+java Sample311
+</code></pre>
+<h3>解説</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>メソッド</th><th>機能</th></tr></thead><tbody><tr><td>abs(double a)</td><td>aの絶対値</td></tr><tr><td>max(doubel a, double b)</td><td>aとbで大きい方</td></tr><tr><td>min(doubel a, double b)</td><td>aとbで小さい方</td></tr><tr><td>pow(double a, double b)</td><td>aのb乗</td></tr><tr><td>random()</td><td>0.0以上1.0未満の値を返す</td></tr><tr><td>sqrt(double a)</td><td>aの平方根</td></tr></tbody></table>
+<h1>　</h1>
+<h2>3.2 Stringクラス</h2>
+<p>下記の内容をSample321.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample321.java" data-raw="public class Sample321 {
+  public static void main (String[] args) {
+    String s1 = &#x22;apple&#x22;;
+    String s2 = &#x22;orange&#x22;;
+    
+    // 文字列が等しいかどうか調べる
+    if (s1.equals(s2)) {
+      System.out.println(&#x22;等しい&#x22;);
+    }
+    else {
+      System.out.println(&#x22;等しくない&#x22;);
+    }
+    
+    // 文字列の大きさを辞書順で比較する
+    int ans = s1.compareTo(s2);
+    if (ans == 0) {
+      System.out.println(&#x22;等しい&#x22;);
+    }
+    else if (ans > 0) {
+      System.out.println(s1 + &#x22;の方が大きい&#x22;);
+    }
+    else {
+      System.out.println(s1 + &#x22;の方が小さい&#x22;);
+    }
+  }
+}
+"><code class="language-Sample321.java">public class Sample321 {
+  public static void main (String[] args) {
+    String s1 = "apple";
+    String s2 = "orange";
+    
+    // 文字列が等しいかどうか調べる
+    if (s1.equals(s2)) {
+      System.out.println("等しい");
+    }
+    else {
+      System.out.println("等しくない");
+    }
+    
+    // 文字列の大きさを辞書順で比較する
+    int ans = s1.compareTo(s2);
+    if (ans == 0) {
+      System.out.println("等しい");
+    }
+    else if (ans > 0) {
+      System.out.println(s1 + "の方が大きい");
+    }
+    else {
+      System.out.println(s1 + "の方が小さい");
+    }
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample321.java
+java Sample321
+"><code class="language-Shell:sample.sh">javac Sample321.java
+java Sample321
+</code></pre>
+<h3>解説</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>メソッド</th><th>機能</th></tr></thead><tbody><tr><td>charAt(int idx)</td><td>idxの位置にある文字を返す</td></tr><tr><td>compareTo(String str)</td><td>strと辞書順に比較した結果</td></tr><tr><td>equals(Object obj)</td><td>objと等しいか</td></tr><tr><td>indexOf(String str)</td><td>strを探して最初に見つかった位置</td></tr><tr><td>length()</td><td>文字列の長さ</td></tr><tr><td>replace(char c1, char c2</td><td>文字cをc2に置き換える　</td></tr><tr><td>substring(int idx1, int idx2)</td><td>idx1～idx2までの文字列を取り出す</td></tr></tbody></table>
+<h1>　</h1>
+<h2>3.3 Calendarクラス</h2>
+<p>下記の内容をSample331.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample331.java" data-raw="import java.util.Calendar;
+
+public class Sample331 {
+  public static void main (String[] args) {
+    // 現在の日時のカレンダーを取得する
+    Calendar cal = Calendar.getInstance();
+    
+    // 現在の日に１０日を加える
+    cal.add(Calendar.DATE, 10);
+    
+    // 日時を年、月、日で表示する
+    int year = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH) + 1;  // 1月がゼロなので
+    int day = cal.get(Calendar.DATE);
+    System.out.println(&#x22;現在の１０日後は、&#x22; + year + &#x22;年&#x22; + month + &#x22;月&#x22; + day + &#x22;日です。&#x22;);
+  }
+}
+"><code class="language-Sample331.java">import java.util.Calendar;
+
+public class Sample331 {
+  public static void main (String[] args) {
+    // 現在の日時のカレンダーを取得する
+    Calendar cal = Calendar.getInstance();
+    
+    // 現在の日に１０日を加える
+    cal.add(Calendar.DATE, 10);
+    
+    // 日時を年、月、日で表示する
+    int year = cal.get(Calendar.YEAR);
+    int month = cal.get(Calendar.MONTH) + 1;  // 1月がゼロなので
+    int day = cal.get(Calendar.DATE);
+    System.out.println("現在の１０日後は、" + year + "年" + month + "月" + day + "日です。");
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample331.java
+java Sample331
+"><code class="language-Shell:sample.sh">javac Sample331.java
+java Sample331
+</code></pre>
+<h3>解説</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>メソッド</th><th>機能</th></tr></thead><tbody><tr><td>add(int field, int val)</td><td>fieldにvalを足す</td></tr><tr><td>compareTo(Calendar cal)</td><td>calとの比較結果</td></tr><tr><td>equals(Object obj)</td><td>objと等しいか</td></tr><tr><td>get(int field)</td><td>fieldで指定された項目の値</td></tr><tr><td>getInstance()</td><td>現在のカレンダーを返す</td></tr><tr><td>getTime()</td><td>カレンダーをDateクラスのオブジェクトにする</td></tr><tr><td>set(int field,int val)</td><td>fieldにvalを設定する</td></tr><tr><td>setTime(Date date)</td><td>dateの日時をカレンダーに設定する</td></tr></tbody></table>
+<h1>　</h1>
+<h2>3.4 Threadクラス</h2>
+<p>下記の内容をSample341.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample341.java" data-raw="class MyClass extends Thread {
+  private String name;
+  
+  // マルチスレッドで実行されるメソッド
+  public void run() {
+    try {
+      for (int i = 1; i <= 5; i++) {
+        System.out.println(this.name + &#x22;:&#x22; + i);
+        Thread.sleep(100);
+      }
+    }
+    catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+  
+  public MyClass(String name) {
+    this.name = name;
+  }
+}
+
+// ２つのスレッドを起動するクラス
+public class Sample341 {
+  public static void main (String[] args) {
+    // インスタンスを２つ生成する
+    MyClass a = new MyClass(&#x22;A&#x22;);
+    MyClass b = new MyClass(&#x22;B&#x22;);
+    
+    // ２つのスレッドの実行を開始する
+    a.start();
+    b.start();
+  }
+}
+"><code class="language-Sample341.java">class MyClass extends Thread {
+  private String name;
+  
+  // マルチスレッドで実行されるメソッド
+  public void run() {
+    try {
+      for (int i = 1; i &#x3C;= 5; i++) {
+        System.out.println(this.name + ":" + i);
+        Thread.sleep(100);
+      }
+    }
+    catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+  
+  public MyClass(String name) {
+    this.name = name;
+  }
+}
+
+// ２つのスレッドを起動するクラス
+public class Sample341 {
+  public static void main (String[] args) {
+    // インスタンスを２つ生成する
+    MyClass a = new MyClass("A");
+    MyClass b = new MyClass("B");
+    
+    // ２つのスレッドの実行を開始する
+    a.start();
+    b.start();
+  }
+}
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample341.java
+java Sample341
+"><code class="language-Shell:sample.sh">javac Sample341.java
+java Sample341
+</code></pre>
+<h3>解説</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>メソッド</th><th>機能</th></tr></thead><tbody><tr><td>getId()</td><td>スレッドのIDを返す</td></tr><tr><td>join()</td><td>スレッドが終了するまで待つ</td></tr><tr><td>run()</td><td>スレッドで実行する処理を記述する</td></tr><tr><td>sleep(long millis)</td><td>millisミリ秒待つ</td></tr><tr><td>start()</td><td>スレッドの実行を開始する</td></tr></tbody></table>
+<h1>　</h1>
+<h2>3.5 コレクションを提供するクラス</h2>
+<p>下記の内容をSample351.javaとして作成します。</p>
+<pre class="cm-s-3024-night CodeMirror language-Sample351.java" data-raw="import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+
+public class Sample351 {
+  public static void main (String[] args) {
+    // 整数のリスト
+    List<Integer> intList = new ArrayList<Integer>();
+    intList.add(123);
+    intList.add(456);
+    intList.add(789);
+    for (int i = 0; i < intList.size(); i++) {
+      System.out.println(i + &#x22;番目 = &#x22; + intList.get(i)); 
+    }
+    System.out.println();
+    
+    // 整数と文字列のマップ
+    Map<Integer, String> monthMap = new HashMap<Integer, String>();
+    monthMap.put(1, &#x22;Januuary&#x22;);
+    monthMap.put(2, &#x22;February&#x22;);
+    monthMap.put(3, &#x22;March&#x22;);
+    monthMap.put(4, &#x22;April&#x22;);
+    monthMap.put(5, &#x22;May&#x22;);
+    monthMap.put(6, &#x22;June&#x22;);
+    monthMap.put(7, &#x22;July&#x22;);
+    monthMap.put(8, &#x22;August&#x22;);
+    monthMap.put(9, &#x22;September&#x22;);
+    monthMap.put(10, &#x22;October&#x22;);
+    monthMap.put(11, &#x22;November&#x22;);
+    monthMap.put(12, &#x22;December&#x22;);
+    Set<Integer> keys = monthMap.keySet();    // キーのセット
+    for (int k : keys) {
+      System.out.println(k + &#x22;月 = &#x22; + monthMap.get(k));
+    }
+  }
+}
+
+"><code class="language-Sample351.java">import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+
+public class Sample351 {
+  public static void main (String[] args) {
+    // 整数のリスト
+    List&#x3C;Integer> intList = new ArrayList&#x3C;Integer>();
+    intList.add(123);
+    intList.add(456);
+    intList.add(789);
+    for (int i = 0; i &#x3C; intList.size(); i++) {
+      System.out.println(i + "番目 = " + intList.get(i)); 
+    }
+    System.out.println();
+    
+    // 整数と文字列のマップ
+    Map&#x3C;Integer, String> monthMap = new HashMap&#x3C;Integer, String>();
+    monthMap.put(1, "Januuary");
+    monthMap.put(2, "February");
+    monthMap.put(3, "March");
+    monthMap.put(4, "April");
+    monthMap.put(5, "May");
+    monthMap.put(6, "June");
+    monthMap.put(7, "July");
+    monthMap.put(8, "August");
+    monthMap.put(9, "September");
+    monthMap.put(10, "October");
+    monthMap.put(11, "November");
+    monthMap.put(12, "December");
+    Set&#x3C;Integer> keys = monthMap.keySet();    // キーのセット
+    for (int k : keys) {
+      System.out.println(k + "月 = " + monthMap.get(k));
+    }
+  }
+}
+
+</code></pre>
+<h3>コンパイルと実行</h3>
+<p>下記のコマンドを実行する</p>
+<pre class="cm-s-3024-night CodeMirror language-Shell:sample.sh" data-raw="javac Sample351.java
+java Sample351
+"><code class="language-Shell:sample.sh">javac Sample351.java
+java Sample351
+</code></pre>
+<h3>解説</h3>
+<p>Listインターフェース</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>メソッド</th><th>機能</th></tr></thead><tbody><tr><td>add(ele)</td><td>末尾にeleを追加する</td></tr><tr><td>add(idx,ele)</td><td>idxの位置にeleを追加する</td></tr><tr><td>clear()</td><td>要素を削除する</td></tr><tr><td>get(idx)</td><td>idxの要素を返す</td></tr><tr><td>isEmpty()</td><td>リストが空かどうか</td></tr><tr><td>remove(idx)</td><td>idxの要素を削除する</td></tr><tr><td>set(ide,ele)</td><td>idxの要素をeleで置き換える</td></tr><tr><td>size()</td><td>リストの要素数を返す</td></tr></tbody></table>
+<p>Mapインターフェース</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>メソッド</th><th>機能</th></tr></thead><tbody><tr><td>clear()</td><td>マップの要素を全て削除する</td></tr><tr><td>get(key)</td><td>keyに対応する値</td></tr><tr><td>isEmpty()</td><td>マップが空かどうか</td></tr><tr><td>keSet()</td><td>キーのセットを返す</td></tr><tr><td>put(key,val)</td><td>keyとvalを格納する</td></tr><tr><td>remove(key)</td><td>keyの要素を削除する</td></tr><tr><td>size()</td><td>mapの要素数を返す</td></tr></tbody></table>
+<p>Setインターフェース</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>メソッド</th><th>機能</th></tr></thead><tbody><tr><td>add(ele)</td><td>セットにeleを追加する</td></tr><tr><td>clear()</td><td>セットの要素を削除する</td></tr><tr><td>isEmpty()</td><td>セットが空かどうか</td></tr><tr><td>remove(obj)</td><td>objを削除する</td></tr><tr><td>size()</td><td>セットの要素数を返す</td></tr></tbody></table>
+<script>function fb(e,t){let n=window.document.getElementById(e);if(null==n){n=window.document.createElement(t),n.id=e,n.style.display="none",window.document.body.appendChild(n)}}
+        appendElementToBody('chart-export-container', 'canvas')
+        appendElementToBody('flowchart-export-container', 'div')
+      </script>
+</body>
+</html>
