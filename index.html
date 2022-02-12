@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="jp">
 <head>
 <meta charset="utf-8">
 <title>Java言語</title>
@@ -703,6 +703,34 @@ hr {
 <link rel="stylesheet" href="https://boostnote.io/app/codemirror/theme/3024-night.css">
 </head>
 <body>
+<h1>実行環境について</h1>
+<h2>Paiza Cloudへの登録</h2>
+<p><a href="https://paiza.cloud/ja/">Paiza Cloud</a>にアクセスして登録を行って下さい。</p>
+<ul>
+<li>登録はメールアドレスのみです</li>
+<li>無料で利用できます</li>
+</ul>
+<h2>Paiza Cloud利用方法</h2>
+<ul>
+<li>新規サーバー作成を押します</li>
+<li>サーバー作成オプションの選択画面が表示されますが、特に指定する必要はありません。</li>
+<li>そのまま新規サーバー作成を押します</li>
+<li>まず左側のメニューから「ターミナル」を押して下さい</li>
+<li>左側のメニューで「新規ファイル作成」を押してjavaファイルを作成します</li>
+<li>javaファイルができたら、ターミナルでコンパイルと実行をします</li>
+</ul>
+<blockquote>
+<p>起動後に約１時間でフリーズし、１２時間で環境がロックされます。
+使い捨て環境なので、都度作成し直して下さい
+環境の破棄は、画面右上のユーザー名からドロップダウンメニューで「ダッシュボード」を選択してください。</p>
+</blockquote>
+<h2>ソースの入力を省略したい方</h2>
+<p>下記のコマンドでソースをダウンロードしてください。</p>
+<pre class="cm-s-3024-night CodeMirror" data-raw="git clone https://github.com/nstdejita/dokusyu.git
+cd dokusyu
+"><code>git clone https://github.com/nstdejita/dokusyu.git
+cd dokusyu
+</code></pre>
 <h1>1. Javaの基本構文</h1>
 <h2>1.1 入力、演算、出力</h2>
 <p>下記の内容をSample111.javaとして作成します。</p>
@@ -2430,7 +2458,7 @@ java Sample281
 <ul>
 <li>抽象クラスが抽象メソッドのみで構成される場合、インターフェースとして宣言することができる。</li>
 <li>インターフェース宣言された抽象メソッドにはabstract宣言しなくてよい</li>
-<li>インターフェースの処理内容を記述するためのクラスは implementsとして宣言する</li>
+<li>インターフェースの処理内容を記述するためのクラスは <strong>implements</strong>として宣言する</li>
 <li>インターフェースを実装した各クラスは抽象クラスと同様に多態性をもっている</li>
 </ul>
 <h1>　</h1>
@@ -2821,6 +2849,7 @@ java Sample2121
 <li>自分で例外クラスを作成することもできる</li>
 <li>独自の例外クラスを作る場合は、まずExceptionを継承した新しいクラスを作成する</li>
 <li>メソッド内で必要なチェックを行い、throw関数を使って独自の例外クラスを呼び出す</li>
+<li><strong>throws</strong>宣言は、指定されたexceptionが発生した場合、呼び出し元に例外処理を移譲する</li>
 </ul>
 <h1>　</h1>
 <h2>2.13 ジェネリクスとボクシング</h2>
